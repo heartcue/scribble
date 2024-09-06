@@ -1,3 +1,6 @@
+import UI/DragController
+import UI/BossHealthBar
+import Cosmetics/BlackHole
 /* Set up your elemental and default items.
 Format is:
 ["weapon type",
@@ -148,7 +151,8 @@ var debuff_non_bosses = "smite"
 /* If item is not listed here, its `R` ability
 won't be used. Supported: dash, bash,
 bardiche, hammer, blade, skeleton_arm, mask,
-quarterstaff, fire_talisman, cinderwisp, aether_talisman, voidweaver. */
+quarterstaff, fire_talisman, cinderwisp, 
+aether_talisman, voidweaver. */
 var useable_abilities = ["dash", "bash",
 "skeleton_arm", "mask", "blade", "hammer",
 "fire_talisman", "bardiche", "quarterstaff",
@@ -221,7 +225,7 @@ var bfg_defeated_foes = []
 quests. Prioritizes last-hitting foes with the
 Arm ability */
 var pickpocket_quest = false
-
+var aether_talisman_quest = true
 // These depend on level/enchants of the Arm
 var arm_damage = 44
 var max_pickpocket_stacks = 3
@@ -1662,6 +1666,3 @@ prelude()
 :
   healwalk()
 draw_ui()
-
-import UI/DragController
-import UI/BossHealthBar
