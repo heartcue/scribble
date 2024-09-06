@@ -326,8 +326,8 @@ func healwalk()
   :?harvesting&harvest.distance<3&
   ^_harvest()
     return true
-  :?should_summon()
-    return equip_L("trisk")&summon()
+  :?should_summon_aether()
+    return equip_L("trisk")&summon_aether()
   :?can_qs_dash()
     return qs_dash()
   ae_shield()
