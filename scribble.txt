@@ -148,10 +148,11 @@ var debuff_non_bosses = "smite"
 /* If item is not listed here, its `R` ability
 won't be used. Supported: dash, bash,
 bardiche, hammer, blade, skeleton_arm, mask,
-quarterstaff, fire_talisman, cinderwisp. */
+quarterstaff, fire_talisman, cinderwisp, aether_talisman, voidweaver. */
 var useable_abilities = ["dash", "bash",
 "skeleton_arm", "mask", "blade", "hammer",
 "fire_talisman", "bardiche", "quarterstaff",
+"aether_talisman", "voidweaver",
 // "cinderwisp" // will spend your fire runes
 ]
 
@@ -185,7 +186,7 @@ over foe's elemental weakness.
 If 1, will always try to lifesteal to max
   (useful for clearing zones with full HP).
 If 0, will never force lifesteal. */
-var low_hp_threshold = 0.5
+var low_hp_threshold = 0.7
 
 /* Switch to 1h+shield against non-boss foes
 when `low_hp_threshold` is reached */
@@ -750,6 +751,8 @@ func stunlock()
   ^should_bard()|is(lock,"bardiche")
     return bardiche()
   :?stunned>10
+    ?should_voidw()
+      return voidw()
     ?should_cinder()
       return cinder()
     ?should_smite()
@@ -1127,6 +1130,30 @@ func should_mask()
 func mask()
   equip_R("mask")
   return use("mask")
+func can_summon_aether()
+  return (summon.GetId()!"voidweaver"|
+  ^lock="aether_talisman")&
+  ^cu("aether_talisman")&ca()
+func should_summon_aether()
+  return (fi!"poena")&can_summon_aether()
+var fire_frames=20
+func summon_aether()
+  set_lock("aether_talisman",fire_frames)
+  equip_R("aether talisman")
+  return use("aether_talisman")
+func unsummon_aether()
+  ?summon.count>0
+    equip_R("aether talisman")
+    return use("aether_talisman")
+  return false
+func can_voidw()
+  return summon.GetId()="voidweaver"&
+  ^cu("voidweaver")&ca()
+func should_voidw()
+  return ib&can_voidw()
+func voidw()
+  activate voidweaver
+  return true
 func can_summon()
   return (summon.GetId()!"cinderwisp"|
   ^lock="fire_talisman")&
@@ -1159,6 +1186,8 @@ func use_abilities()
     return mask()
   ?pickpocket_quest&can_slap()
     return slap()
+  ?should_voidw()
+    return voidw()
   ?should_cinder()
     return cinder()
   ?should_mask()
@@ -1384,7 +1413,8 @@ func get_foe_weak_elem()
 var all_abilities=[
   "mind","hammer","bardiche","blade",
   "skeleton_arm","mask","fire_talisman",
-  "cinderwisp","quarterstaff","dash","bash",
+  "cinderwisp","aether_talisman","voidweaver",
+  "quarterstaff","dash","bash",
 ]
 var move_r=["quarterstaff","bash","dash"]
 var cooldowns=["mind",0]
@@ -1603,8 +1633,10 @@ func brew_pot()
   ^ll=halls|ll=rocky|ll=deadwood|
   ^ll=icy_ridge
     brew wood+bronze
-  :?ll=caves|ll=temple
+  :?ll=caves
     brew stone+bronze
+  :?ll=temple
+    brew wood+tar
 func reset_loop()
   lock=false
   lock_timer=0
