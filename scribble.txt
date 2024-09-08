@@ -1032,9 +1032,10 @@ func maybe_drink()
     activate potion
   return true
 func can_dash()
-  return ca()&(cu("dash")|
-  ^cu("bash")&!disable_debuffs)
-  ^&fd>10&fd<16
+  ?!fi="dysangelos_perfected"
+    return ca()&(cu("dash")|
+    ^cu("bash")&!disable_debuffs)
+    ^&fd>10&fd<16
 func dash()
   ?!disable_debuffs&cu("bash")
     return equip_R("bashing")
