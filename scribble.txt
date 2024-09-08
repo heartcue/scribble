@@ -225,7 +225,7 @@ var bfg_defeated_foes = []
 quests. Prioritizes last-hitting foes with the
 Arm ability */
 var pickpocket_quest = false
-var aether_talisman_quest = true
+var ae_talis_quest = true
 // These depend on level/enchants of the Arm
 var arm_damage = 44
 var max_pickpocket_stacks = 3
@@ -330,8 +330,8 @@ func healwalk()
   :?harvesting&harvest.distance<3&
   ^_harvest()
     return true
-  :?should_summon_aether()
-    return equip_L("trisk")&summon_aether()
+  :?should_summon()
+    return equip_L("trisk")&summon()
   :?can_qs_dash()
     return qs_dash()
   ae_shield()
@@ -755,8 +755,8 @@ func stunlock()
   ^should_bard()|is(lock,"bardiche")
     return bardiche()
   :?stunned>10
-    ?should_voidw()
-      return voidw()
+    ?should_cinder()
+      return cinder()
     ?should_smite()
       return smite()
     ?should_mask()
@@ -1034,6 +1034,8 @@ func maybe_drink()
     activate potion
   return true
 func can_dash()
+  ?fi="dysangelos_prefected"
+    return false
   return ca()&(cu("dash")|
   ^cu("bash")&!disable_debuffs)
   ^&fd>10&fd<16
@@ -1188,8 +1190,10 @@ func use_abilities()
     return mask()
   ?pickpocket_quest&can_slap()
     return slap()
-  ?should_voidw()
+  ?ae_talis_quest&can_voidw()
     return voidw()
+  ?should_cinder()
+    return cinder()
   ?should_mask()
     return mask()
   ?should_hammer()
