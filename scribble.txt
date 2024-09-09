@@ -1415,10 +1415,10 @@ func get_foe_weak_elem()
   foe_elem="default"
   return "default"
 var all_abilities=[
-  "mind","hammer","bardiche","blade",
-  "skeleton_arm","mask","fire_talisman",
-  "cinderwisp","aether_talisman","voidweaver",
-  "quarterstaff","dash","bash",
+  "minds","heha","bard","blad",
+  "sarm","mask","fita",
+  "wisp","aeta","void",
+  "quar","dash","bash",
 ]
 var move_r=["quarterstaff","bash","dash"]
 var cooldowns=["mind",0]
