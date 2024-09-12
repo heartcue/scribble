@@ -543,6 +543,7 @@ func fight_pallas()
 func fight_bronze_guardian()
   dr("dash")
   dr("bash")
+  dr("quarterstaff")
   ?fast_potion_bosses.Contains("bronze")
     maybe_drink()
   ?fs=32&ft=33&
