@@ -253,6 +253,12 @@ var speedrun = false
 // If true, will use hatchet and shovel
 var harvesting = false
 
+func xLookup(val, arr1, arr2)
+  var index = arr1.IndexOf(val)
+  ?index > -1
+    return arr2[index]
+  :
+    return false
 func progress()
   ?pickup.distance<9
     return equip_L("star")&equip_R("trisk")
@@ -1525,12 +1531,6 @@ var fm=0
 var fs=0
 var ft=0
 var tt=0
-func xLookup(val, arr1, arr2)
-  var index = arr1.IndexOf(val)
-  ?index > -1
-    return arr2[index]
-  :
-    return false
 func _update_game_state()
   ff=foe
   ll=loc
