@@ -1412,9 +1412,9 @@ func cinder()
 func talisman_activate(pet)
   >@pet@
   trace(pet)
-  ?pet="cinder":
+  ?pet="cinder"
     activate cinderwisp
-  :?pet="voidw":
+  :?pet="voidw"
     activate voidweaver
   :
     dbg("Unknown talisman pet: " + pet)
