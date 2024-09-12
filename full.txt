@@ -1410,6 +1410,7 @@ func cinder()
   return true
 
 func talisman_activate(pet)
+  >@pet@
   trace(pet)
   ?pet="cinder":
     activate cinderwisp
