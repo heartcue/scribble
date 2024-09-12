@@ -1525,6 +1525,12 @@ var fm=0
 var fs=0
 var ft=0
 var tt=0
+func xLookup(val, arr1, arr2)
+  var index = arr1.IndexOf(val)
+  ?index > -1
+    return arr2[index]
+  :
+    return false
 func _update_game_state()
   ff=foe
   ll=loc
@@ -1591,7 +1597,7 @@ func draw_ui()
       ^abilities.Contains(r)
         var cd=get_cd(r)
         >`@x@,@y@,#@colorize(cd)@,
-        ^@string.Capitalize(text)@
+        ^@string.Capitalize(@text@)@
         ^ @time.FormatDigital(cd)@
         y++
     >`@x@,@y@,
