@@ -647,8 +647,8 @@ func is_poison_near()
   return draw.GetSymbol(x+2,y-6)="("|
   ^(draw.GetSymbol(x+1,y-6)="(")
 func regular_fight()
-  ?should_cinder()
-    return cinder()
+  ?should_voidw()
+    return voidw()
   ?must_ranged_foe()
     return ranged("single")
   ?ff=immune_to_ranged|ff=ranged
