@@ -434,6 +434,8 @@ func fight_dysan()
       return equip_R(f)
     return ae_R("melee",false)
   :?ff=phase3
+    dr("dash")
+    dr("bash")
     weak_elem="default"
     hit=20+math.Max(0,delay-6)
     ?fs=32&ft>hit&dysan_step=0
@@ -533,6 +535,8 @@ func fight_pallas()
       return ranged("aoe")
     auto_melee_boss()
 func fight_bronze_guardian()
+  dr("dash")
+  dr("bash")
   ?fast_potion_bosses.Contains("bronze")
     maybe_drink()
   ?fs=32&ft=33&
@@ -1034,8 +1038,6 @@ func maybe_drink()
     activate potion
   return true
 func can_dash()
-  ?fi="dysangelos_prefected"
-    return false
   return ca()&(cu("dash")|
   ^cu("bash")&!disable_debuffs)
   ^&fd>10&fd<16
@@ -1414,11 +1416,17 @@ func get_foe_weak_elem()
     return "poison"
   foe_elem="default"
   return "default"
-var all_abilities=[
-  "minds","heha","bard","blad",
-  "sarm","mask","fita",
+var all_abilities = [
+  "mind", "hammer", "bardiche", "blade",
+  "skeleton_arm", "mask", "fire_talisman",
+  "cinderwisp","aether_talisman","voidweaver",
+  "quarterstaff", "dash", "bash",
+]
+var abilities_shortname = [
+  "mind","hamm","bard","blad",
+  "arm","mask","fita",
   "wisp","aeta","void",
-  "quar","dash","bash",
+  "qtr","dash","bash"
 ]
 var move_r=["quarterstaff","bash","dash"]
 var cooldowns=["mind",0]
@@ -1574,17 +1582,16 @@ func draw_ui()
       ^ @time.FormatDigital(tt)@
       ^/@time.FormatDigital(loc.averageTime)@
   ?ui_show_cd
+    x=3
     y=6
     for r:all_abilities
+      var text = xLookup(r,all_abilities,
+      ^abilities_shortname)
       ?!move_r.Contains(r)&r!"fire_talisman"&
       ^abilities.Contains(r)
         var cd=get_cd(r)
-        ?is(r,"skeleton_arm")
-          r="arm"
-        :?is(r,"cinderwisp")
-          r="cinder"
         >`@x@,@y@,#@colorize(cd)@,
-        ^@string.Capitalize(r)@
+        ^@string.Capitalize(text)@
         ^ @time.FormatDigital(cd)@
         y++
     >`@x@,@y@,
